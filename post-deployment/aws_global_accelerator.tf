@@ -27,7 +27,7 @@ resource "aws_globalaccelerator_endpoint_group" "primary" {
   endpoint_configuration {
     endpoint_id                    = data.aws_ssm_parameter.primary.value
     client_ip_preservation_enabled = true
-    weight                         = 50
+    weight                         = lookup(var.routing, "primary")
   }
 
 }
@@ -38,7 +38,7 @@ resource "aws_globalaccelerator_endpoint_group" "secondary" {
   endpoint_configuration {
     endpoint_id                    = data.aws_ssm_parameter.secondary.value
     client_ip_preservation_enabled = true
-    weight                         = 50
+    weight                         = lookup(var.routing, "secondary")
   }
 
 }
