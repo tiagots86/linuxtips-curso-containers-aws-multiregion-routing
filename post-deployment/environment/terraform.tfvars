@@ -8,3 +8,5 @@ routing = {
   secondary = 0
 }
 
+route53_hosted_zone = "Z03448541JPSP030HY3WE"
+dns_name            = "sales.tiagots86.com.br"
