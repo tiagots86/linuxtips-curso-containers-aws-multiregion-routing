@@ -1,11 +1,8 @@
 resource "aws_globalaccelerator_accelerator" "main" {
-  name = var.project_name
-
+  name            = var.project_name
   ip_address_type = "IPV4"
 
   enabled = true
-
-
 }
 
 resource "aws_globalaccelerator_listener" "main" {
@@ -19,6 +16,10 @@ resource "aws_globalaccelerator_listener" "main" {
   }
 
 
+  port_range {
+    from_port = 443
+    to_port   = 443
+  }
 }
 
 resource "aws_globalaccelerator_endpoint_group" "primary" {
@@ -29,7 +30,6 @@ resource "aws_globalaccelerator_endpoint_group" "primary" {
     client_ip_preservation_enabled = true
     weight                         = lookup(var.routing, "primary")
   }
-
 }
 
 resource "aws_globalaccelerator_endpoint_group" "secondary" {
@@ -40,5 +40,4 @@ resource "aws_globalaccelerator_endpoint_group" "secondary" {
     client_ip_preservation_enabled = true
     weight                         = lookup(var.routing, "secondary")
   }
-
 }
